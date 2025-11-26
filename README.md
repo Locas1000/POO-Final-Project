@@ -7,7 +7,7 @@
 
 -----
 
-## 📄 Planteamiento del Escenario
+##  Planteamiento del Escenario
 
 Es una tienda emergente de tecnología especializada en hardware de alto rendimiento y accesorios periféricos. Actualmente, la tienda enfrenta problemas operativos debido a la falta de un sistema digital centralizado: el inventario se lleva manualmente, lo que ocasiona errores en los precios y pérdida de información sobre el stock disponible.
 
@@ -22,7 +22,7 @@ El sistema debe ser escalable, permitiendo agregar nuevas categorías de product
 
 -----
 
-## ⚙️ Funcionamiento Esperado
+##  Funcionamiento Esperado
 
 El programa se ejecuta como una aplicación de consola interactiva. A continuación se describe el flujo de trabajo y las características técnicas implementadas:
 
@@ -63,7 +63,7 @@ El programa cuenta con un bloque de seguridad (`try-except`) que previene el cie
 
 -----
 
-## 🛠️ Tecnologías y Conceptos Aplicados
+##  Tecnologías y Conceptos Aplicados
 
   * **Lenguaje:** Python 3.x
   * **Paradigma:** Programación Orientada a Objetos (POO).
@@ -77,7 +77,7 @@ El programa cuenta con un bloque de seguridad (`try-except`) que previene el cie
 
 -----
 
-## 🚀 Instrucciones de Ejecución
+## Instrucciones de Ejecución
 
 1.  Asegúrese de tener los archivos `main.py`, `models.py` y `data_manager.py` en la misma carpeta.
 2.  Ejecute el archivo principal desde la terminal:
