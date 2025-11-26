@@ -1,3 +1,4 @@
+#ya acabe
 import json
 from models import Laptop, Accessory
 
