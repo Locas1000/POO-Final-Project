@@ -35,7 +35,7 @@ def main():
 
                 new_laptop = Laptop(name, sku, price, ram)
                 inventory.append(new_laptop)
-                print("✅ Laptop added successfully.")
+                print("Laptop added successfully.")
 
             # --- AGREGAR ACCESORIO ---
             elif choice == '2':
@@ -46,7 +46,7 @@ def main():
 
                 new_acc = Accessory(name, sku, price, comp)
                 inventory.append(new_acc)
-                print("✅ Accessory added successfully.")
+                print(" Accessory added successfully.")
 
             # --- AGREGAR MONITOR (NUEVO) ---
             elif choice == '3':
@@ -58,12 +58,12 @@ def main():
 
                 new_monitor = Monitor(name, sku, price, size, res)
                 inventory.append(new_monitor)
-                print("✅ Monitor added successfully.")
+                print(" Monitor added successfully.")
 
             # --- CREAR ORDEN DE COMPRA ---
             elif choice == '4':
                 if not inventory:
-                    print("⚠️ Inventory is empty! Add products first.")
+                    print(" Inventory is empty! Add products first.")
                     continue
 
                 current_order = Order()
@@ -93,13 +93,13 @@ def main():
                             # Por si acaso agregamos un tipo nuevo dinámicamente
                             sales_totals[item_type] = selected_item.price
                     else:
-                        print("❌ Invalid index selection.")
+                        print(" Invalid index selection.")
 
                 current_order.show_receipt()
 
             # --- REPORTE PROTEGIDO ---
             elif choice == '5':
-                print("⚠️  SECURITY CHECK ⚠️")
+                print("  SECURITY CHECK ")
                 password = input("Enter Admin Password: ")
 
                 if password == ADMIN_PASSWORD:
@@ -111,18 +111,18 @@ def main():
                     print("--------------------------")
                     print(f"GROSS REVENUE: ${grand_total:.2f}")
                 else:
-                    print("❌ ACCESS DENIED. Incorrect Password.")
+                    print(" ACCESS DENIED. Incorrect Password.")
 
             # --- GUARDAR Y SALIR ---
             elif choice == '6':
                 DataManager.save_inventory(FILE_NAME, inventory)
-                print("💾 System Saved. Goodbye!")
+                print(" System Saved. Goodbye!")
                 break
 
         except ValueError:
-            print("❌ Error: Please enter a valid number for Price/RAM/Size.")
+            print("Error: Please enter a valid number for Price/RAM/Size.")
         except Exception as e:
-            print(f"❌ Unexpected Error: {e}")
+            print(f" Unexpected Error: {e}")
         finally:
             print("-" * 30)
 
