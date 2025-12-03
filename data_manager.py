@@ -5,7 +5,6 @@ from models import Laptop, Accessory,Monitor
 class DataManager:
     @staticmethod
     def save_inventory(filename, inventory):
-        # Convert list of Objects to list of Dictionaries
         data = [item.to_dict() for item in inventory]
         try:
             with open(filename, 'w') as f:
@@ -20,8 +19,6 @@ class DataManager:
         try:
             with open(filename, 'r') as f:
                 data = json.load(f)
-
-                # Reconstruct Objects based on "type"
                 for item in data:
                     if item['type'] == 'Laptop':
                         obj = Laptop(item['name'], item['sku'], item['price'], item['ram'])

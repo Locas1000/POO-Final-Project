@@ -5,22 +5,19 @@ from data_manager import DataManager
 def main():
     FILE_NAME = "inventory.json"
 
-    # 1. Cargar datos usando tu DataManager actualizado
     inventory = DataManager.load_inventory(FILE_NAME)
 
-    # Diccionario para estadísticas de ventas
     sales_totals = {"Laptop": 0.0, "Accessory": 0.0, "Monitor": 0.0}
 
-    # --- CONFIGURACIÓN DE SEGURIDAD ---
     ADMIN_PASSWORD = "admin123"
 
     while True:
         print("\n--- TECH VAULT MEGA STORE ---")
         print("1. Add Laptop")
         print("2. Add Accessory")
-        print("3. Add Monitor")  # <--- Opción nueva
+        print("3. Add Monitor")
         print("4. Create Order (Buy Items)")
-        print("5. View Sales Stats (PASSWORD REQUIRED)")  # <--- Opción protegida
+        print("5. View Sales Stats (PASSWORD REQUIRED)")
         print("6. Save & Exit")
 
         choice = input("Select option: ")
@@ -48,7 +45,7 @@ def main():
                 inventory.append(new_acc)
                 print(" Accessory added successfully.")
 
-            # --- AGREGAR MONITOR (NUEVO) ---
+            # --- AGREGAR MONITOR---
             elif choice == '3':
                 name = input("Name: ")
                 sku = input("SKU: ")
@@ -86,18 +83,16 @@ def main():
                         current_order.add_product(selected_item)
 
                         # Actualizar diccionario de ventas
-                        item_type = type(selected_item).__name__  # Obtiene "Monitor", "Laptop", etc.
+                        item_type = type(selected_item).__name__
                         if item_type in sales_totals:
                             sales_totals[item_type] += selected_item.price
                         else:
-                            # Por si acaso agregamos un tipo nuevo dinámicamente
                             sales_totals[item_type] = selected_item.price
                     else:
                         print(" Invalid index selection.")
 
                 current_order.show_receipt()
 
-            # --- REPORTE PROTEGIDO ---
             elif choice == '5':
                 print("  SECURITY CHECK ")
                 password = input("Enter Admin Password: ")
@@ -106,7 +101,7 @@ def main():
                     print("\n--- 🔒 SECRET SALES REPORT ---")
                     grand_total = 0
                     for category, total in sales_totals.items():
-                        print(f"💰 {category}: ${total:.2f}")
+                        print(f" {category}: ${total:.2f}")
                         grand_total += total
                     print("--------------------------")
                     print(f"GROSS REVENUE: ${grand_total:.2f}")

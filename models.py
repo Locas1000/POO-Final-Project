@@ -2,7 +2,7 @@ class Product:
     def __init__(self, name, sku, price):
         self.name = name
         self.sku = sku
-        self._price = price  # Protected attribute
+        self._price = price
 
     @property
     def price(self):
@@ -76,7 +76,6 @@ class Order:
         print("----------------")
 
 
-# ... (Mantén tus clases Product, Laptop, Accessory y Order igual)
 
 class Monitor(Product):
     def __init__(self, name, sku, price, size, resolution):
