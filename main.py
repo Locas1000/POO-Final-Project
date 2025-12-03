@@ -1,11 +1,15 @@
 from models import Laptop, Accessory, Monitor, Order
-from data_manager import DataManager
+from data_manager import DataManager  # Assuming your class is in this file
 
 
 def main():
     FILE_NAME = "inventory.json"
 
-    inventory = DataManager.load_inventory(FILE_NAME)
+    # ERROR 1 FIX: Create an instance of DataManager
+    manager = DataManager()
+
+    # Use the instance 'manager' to call the method
+    inventory = manager.load_inventory(FILE_NAME)
 
     sales_totals = {"Laptop": 0.0, "Accessory": 0.0, "Monitor": 0.0}
 
@@ -50,7 +54,7 @@ def main():
                 name = input("Name: ")
                 sku = input("SKU: ")
                 price = float(input("Price: "))
-                size = float(input("Size (inches): "))  # Ejemplo: 27.5
+                size = float(input("Size (inches): "))
                 res = input("Resolution (e.g. 4K, 1080p): ")
 
                 new_monitor = Monitor(name, sku, price, size, res)
@@ -68,7 +72,6 @@ def main():
                 while True:
                     print("\n--- INVENTORY LIST ---")
                     for idx, item in enumerate(inventory):
-                        # Muestra el índice, el objeto y qué tipo de objeto es
                         print(f"[{idx}] {item} - ({type(item).__name__})")
 
                     print("Enter index to add to cart (or 'x' to finish):")
@@ -84,10 +87,14 @@ def main():
 
                         # Actualizar diccionario de ventas
                         item_type = type(selected_item).__name__
+
+                        # ERROR 2 FIX: Use .get_price() instead of .price
+                        price_val = selected_item.get_price()
+
                         if item_type in sales_totals:
-                            sales_totals[item_type] += selected_item.price
+                            sales_totals[item_type] += price_val
                         else:
-                            sales_totals[item_type] = selected_item.price
+                            sales_totals[item_type] = price_val
                     else:
                         print(" Invalid index selection.")
 
@@ -110,7 +117,8 @@ def main():
 
             # --- GUARDAR Y SALIR ---
             elif choice == '6':
-                DataManager.save_inventory(FILE_NAME, inventory)
+                # ERROR 1 FIX: Use the instance 'manager' to save
+                manager.save_inventory(FILE_NAME, inventory)
                 print(" System Saved. Goodbye!")
                 break
 

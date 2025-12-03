@@ -2,14 +2,15 @@ class Product:
     def __init__(self, name, sku, price):
         self.name = name
         self.sku = sku
-        self._price = price
+        # Use the setter method to ensure validation runs on creation
+        self.set_price(price)
 
-    @property
-    def price(self):
+    # REPLACED @property with standard get_price method
+    def get_price(self):
         return self._price
 
-    @price.setter
-    def price(self, value):
+    # REPLACED @price.setter with standard set_price method
+    def set_price(self, value):
         if value < 0:
             raise ValueError("Price cannot be negative.")
         self._price = value
@@ -18,7 +19,8 @@ class Product:
         raise NotImplementedError("Subclasses must implement to_dict")
 
     def __str__(self):
-        return f"{self.name} (${self.price:.2f})"
+        # Updated to use get_price()
+        return f"{self.name} (${self.get_price():.2f})"
 
 
 class Laptop(Product):
@@ -31,7 +33,7 @@ class Laptop(Product):
             "type": "Laptop",
             "name": self.name,
             "sku": self.sku,
-            "price": self.price,
+            "price": self.get_price(), # Updated
             "ram": self.ram
         }
 
@@ -46,14 +48,31 @@ class Accessory(Product):
             "type": "Accessory",
             "name": self.name,
             "sku": self.sku,
-            "price": self.price,
+            "price": self.get_price(), # Updated
             "compatibility": self.compatibility
+        }
+
+
+class Monitor(Product):
+    def __init__(self, name, sku, price, size, resolution):
+        super().__init__(name, sku, price)
+        self.size = size
+        self.resolution = resolution
+
+    def to_dict(self):
+        return {
+            "type": "Monitor",
+            "name": self.name,
+            "sku": self.sku,
+            "price": self.get_price(), # Updated
+            "size": self.size,
+            "resolution": self.resolution
         }
 
 
 class Order:
     def __init__(self):
-        self.products = []  # Composition (List of Objects)
+        self.products = []
 
     def add_product(self, product):
         if isinstance(product, Product):
@@ -65,30 +84,14 @@ class Order:
     def calculate_total(self):
         total = 0
         for p in self.products:
-            total += p.price
+            # Updated to use get_price()
+            total += p.get_price()
         return total
 
     def show_receipt(self):
         print("\n--- Receipt ---")
         for p in self.products:
-            print(f"- {p.name}: ${p.price:.2f}")
+            # Updated to use get_price()
+            print(f"- {p.name}: ${p.get_price():.2f}")
         print(f"Total: ${self.calculate_total():.2f}")
         print("----------------")
-
-
-
-class Monitor(Product):
-    def __init__(self, name, sku, price, size, resolution):
-        super().__init__(name, sku, price)
-        self.size = size             # Ej: 27 pulgadas
-        self.resolution = resolution # Ej: 4K, 1080p
-
-    def to_dict(self):
-        return {
-            "type": "Monitor",
-            "name": self.name,
-            "sku": self.sku,
-            "price": self.price,
-            "size": self.size,
-            "resolution": self.resolution
-        }
