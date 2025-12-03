@@ -1,27 +1,30 @@
 class Product:
-    def __init__(self,name,sku,price):
-        self.name=name
-        self.sku=sku
-        self._price=price
+    def __init__(self, name, sku, price):
+        self.name = name
+        self.sku = sku
+        self._price = price  # Protected attribute
+
     @property
     def price(self):
         return self._price
+
     @price.setter
-    def price(self,value):
+    def price(self, value):
         if value < 0:
-            raise ValueError("price can't be negative.")
+            raise ValueError("Price cannot be negative.")
         self._price = value
 
     def to_dict(self):
-        pass
+        raise NotImplementedError("Subclasses must implement to_dict")
 
     def __str__(self):
-        return f"{self.name} (${self.price})"
+        return f"{self.name} (${self.price:.2f})"
+
 
 class Laptop(Product):
-    def __init__(self,name,sku,price,ram):
-        super().__init__(name,sku,price)
-        self.ram=ram
+    def __init__(self, name, sku, price, ram):
+        super().__init__(name, sku, price)
+        self.ram = ram
 
     def to_dict(self):
         return {
@@ -29,8 +32,9 @@ class Laptop(Product):
             "name": self.name,
             "sku": self.sku,
             "price": self.price,
-            "ram": self.ram,
+            "ram": self.ram
         }
+
 
 class Accessory(Product):
     def __init__(self, name, sku, price, compatibility):
@@ -70,3 +74,22 @@ class Order:
             print(f"- {p.name}: ${p.price:.2f}")
         print(f"Total: ${self.calculate_total():.2f}")
         print("----------------")
+
+
+# ... (Mantén tus clases Product, Laptop, Accessory y Order igual)
+
+class Monitor(Product):
+    def __init__(self, name, sku, price, size, resolution):
+        super().__init__(name, sku, price)
+        self.size = size             # Ej: 27 pulgadas
+        self.resolution = resolution # Ej: 4K, 1080p
+
+    def to_dict(self):
+        return {
+            "type": "Monitor",
+            "name": self.name,
+            "sku": self.sku,
+            "price": self.price,
+            "size": self.size,
+            "resolution": self.resolution
+        }
