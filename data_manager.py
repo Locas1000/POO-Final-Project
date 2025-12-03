@@ -2,9 +2,8 @@ import json
 from models import Laptop, Accessory, Monitor
 
 class DataManager:
-    # Added 'self' as the first parameter
     def save_inventory(self, filename, inventory):
-        # Convert list of Objects to list of Dictionaries
+
         data = [item.to_dict() for item in inventory]
         try:
             with open(filename, 'w') as f:
@@ -13,14 +12,12 @@ class DataManager:
         except IOError as e:
             print(f"Error saving file: {e}")
 
-    # Added 'self' as the first parameter
     def load_inventory(self, filename):
         inventory = []
         try:
             with open(filename, 'r') as f:
                 data = json.load(f)
 
-                # Reconstruct Objects based on "type"
                 for item in data:
                     if item['type'] == 'Laptop':
                         obj = Laptop(item['name'], item['sku'], item['price'], item['ram'])
@@ -33,8 +30,8 @@ class DataManager:
                     inventory.append(obj)
 
         except FileNotFoundError:
-            print("No previous data found. Starting fresh.")
+            print("No previous data found.")
         except json.JSONDecodeError:
-            print("Data file corrupted. Starting fresh.")
+            print("Data file corrupted.")
 
         return inventory

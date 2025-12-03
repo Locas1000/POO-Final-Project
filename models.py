@@ -5,11 +5,9 @@ class Product:
         # Use the setter method to ensure validation runs on creation
         self.set_price(price)
 
-    # REPLACED @property with standard get_price method
     def get_price(self):
         return self._price
 
-    # REPLACED @price.setter with standard set_price method
     def set_price(self, value):
         if value < 0:
             raise ValueError("Price cannot be negative.")
@@ -84,14 +82,12 @@ class Order:
     def calculate_total(self):
         total = 0
         for p in self.products:
-            # Updated to use get_price()
             total += p.get_price()
         return total
 
     def show_receipt(self):
         print("\n--- Receipt ---")
         for p in self.products:
-            # Updated to use get_price()
             print(f"- {p.name}: ${p.get_price():.2f}")
         print(f"Total: ${self.calculate_total():.2f}")
         print("----------------")

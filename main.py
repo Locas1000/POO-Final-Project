@@ -1,14 +1,12 @@
 from models import Laptop, Accessory, Monitor, Order
-from data_manager import DataManager  # Assuming your class is in this file
+from data_manager import DataManager
 
 
 def main():
     FILE_NAME = "inventory.json"
 
-    # ERROR 1 FIX: Create an instance of DataManager
     manager = DataManager()
 
-    # Use the instance 'manager' to call the method
     inventory = manager.load_inventory(FILE_NAME)
 
     sales_totals = {"Laptop": 0.0, "Accessory": 0.0, "Monitor": 0.0}
